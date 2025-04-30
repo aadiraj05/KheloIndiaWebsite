@@ -3,12 +3,13 @@ import QRCode from "react-qr-code";
 import { toPng } from "html-to-image";
 import { v4 as uuidv4 } from "uuid";
 import SlotDropdownButton from "./SlotDropdownButton";
+import TicketLogo from "../assets/Logo.png"; // Replace with your logo path
 
 const generate8DigitId = () => {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
 };
 
-const BookTicketForm = () => {
+const BookTicketForm = ({ handleClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,12 +19,8 @@ const BookTicketForm = () => {
     address: "",
   });
 
-  const [isFormShowing, setIsFormShowing] = useState(false);
-
-  const handleCloseFrom = () => {
-   
-    setIsFormShowing(false);
-  };
+  const ticketRef = useRef(null);
+  
 
   const [ticketId, setTicketId] = useState("");
   const [showQR, setShowQR] = useState(false);
@@ -44,9 +41,9 @@ const BookTicketForm = () => {
   };
 
   const downloadQR = () => {
-    if (qrRef.current === null) return;
-
-    toPng(qrRef.current)
+    if (ticketRef.current === null) return;
+  
+    toPng(ticketRef.current)
       .then((dataUrl) => {
         const link = document.createElement("a");
         link.download = `${formData.name}_ticket.png`;
@@ -54,9 +51,10 @@ const BookTicketForm = () => {
         link.click();
       })
       .catch((err) => {
-        console.error("Error generating PNG from QR:", err);
+        console.error("Error generating PNG from ticket:", err);
       });
   };
+  
 
   
 
@@ -110,7 +108,8 @@ const BookTicketForm = () => {
 
   <div className="grid grid-cols-2 gap-4 w-full">
     <button
-      onClick={handleCloseFrom}
+      type="button"
+      onClick={handleClose}
       className="h-12 w-full rounded-full border border-[#b86cc4] text-base leading-7 font-semibold text-[#b86cc4] hover:text-white shadow-sm transition-all duration-700 hover:bg-[#b86cc4]"
     >
       Cancel
@@ -131,30 +130,63 @@ const BookTicketForm = () => {
 </form>
 
 
-        {showQR && (
-          <div className="mt-6 text-center">
-            <p className="mb-2 font-medium">Your Ticket ID: {ticketId}</p>
-            <div
-              ref={qrRef}
-              className="inline-block p-4 bg-white shadow-md rounded"
-            >
-              <QRCode
-                value={JSON.stringify({ ...formData, ticketId })}
-                size={200}
-                level="H"
-              />
-            </div>
-            <div className="mt-4">
-              <button
-                onClick={downloadQR}
-                className="border border-green-600  text-green-600 hover:text-white py-2 px-4 rounded hover:bg-green-700"
-              >
-                Download QR Code
-              </button>
-              
-            </div>
+{showQR && (
+  <div className="flex flex-col items-center mt-10 space-y-4">
+    {/* Ticket QR Code Section */}
+    <div ref={ticketRef}>
+      <div className="w-[700px] bg-white border-[3px] border-dashed border-gray-400 rounded-lg shadow-2xl flex overflow-hidden">
+        
+        {/* Left Side - Ticket Info */}
+        <div className="w-2/3 p-6">
+          <div className="text-center mb-4">
+            <img src={TicketLogo} alt="Logo" className="mx-auto w-40 rounded-full h-20" />
+            <h2 className="text-xl font-bold text-gray-700 mt-2 tracking-wider">BHAGALPUR</h2>
           </div>
-        )}
+          <div className="text-sm text-gray-800 space-y-2 font-medium">
+            <p><strong>Name:</strong> {formData.name}</p>
+            <p><strong>Email ID:</strong> {formData.email}</p>
+            <p><strong>Mobile Number:</strong> {formData.phone}</p>
+            <p><strong>Ticket Number:</strong> {ticketId}</p>
+            <p><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
+            <p><strong>Venue:</strong> Bhagalpur</p>
+          </div>
+        </div>
+
+
+        <div className="w-px bg-gray-100 border-gray-400 border border-dashed mx-2"></div>
+
+
+        <div className="w-1/3 p-6 flex flex-col items-center justify-center bg-gray-50">
+        <p className="text-xs">{ticketId}</p>
+          
+          <p className="mb-3 font-semibold text-center text-gray-700">Your QR Code</p>
+          <div
+            ref={qrRef}
+            className="inline-block p-2 bg-white border border-dashed rounded shadow"
+          >
+            <QRCode
+              value={JSON.stringify({ ...formData, ticketId })}
+              size={140}
+              level="H"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <div className="flex justify-center space-x-4">
+      <button
+        onClick={downloadQR}
+        className="border border-green-600 text-green-600 hover:text-white py-2 px-4 rounded hover:bg-green-700 transition text-sm"
+      >
+        Download Ticket
+      </button>
+    </div>
+  </div>
+)}
+
+
       </div>
     </div>
   );

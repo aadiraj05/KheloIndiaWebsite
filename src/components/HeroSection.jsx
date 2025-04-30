@@ -4,6 +4,8 @@ import BadmintonImage from '../assets/Badminton-amico.svg';
 import ArcheryImage from '../assets/Archery-amico.svg';
 import { FaCheckToSlot } from "react-icons/fa6";
 import { HiTicket } from "react-icons/hi2";
+import { TfiLayoutLineSolid } from "react-icons/tfi";
+
 // import SlotDropdownButton from './SlotDropdownButton';
 
 const HeroSection = () => {
@@ -19,12 +21,21 @@ const HeroSection = () => {
         setIsFormShowing(false);
     }
   return (
-    <div className="grid grid-cols-2 h-screen px-0 py-5 ">
+    <div className="grid grid-cols-2  px-5 py-25 ">
     {/* Left Side with Khelo India info */}
     <div className="flex flex-col justify-center items-start px-10 mt-0 bg-white">
-      <h2 className="text-3xl font-bold mb-4 text-gray-800">Khelo India – <span className='text-[#b86cc4]'>Bhagalpu</span></h2>
-      <p className="text-md text-gray-700 mb-6 max-w-md">
-        Khelo India is a flagship sports initiative by the Government of India aimed at promoting grassroots sports and building a strong sports culture in the country. Under this program, Bihar has been actively developing its infrastructure, encouraging local talent, and organizing state-level tournaments in various disciplines, including badminton.
+    <h2 className="text-5xl font-bold mb- text-gray-800">
+      KHELO INDIA
+      <span className="text-red-600 text-5xl font-semibold inline-block align-middle ml-2">
+       <TfiLayoutLineSolid />
+      </span>
+    </h2>
+    <h2 className="text-4xl font-semibold text-[#b86cc4] ml-[110px]"><span className="text-red-600 text-5xl font-semibold       inline-block align-middle ml-2">
+       <TfiLayoutLineSolid />
+      </span> Bhagalpur</h2>
+
+      <p className="text-md text-[#dadada]  font-semibold mb-6 mt-10 max-w-md">
+        Khelo India is a government initiative to promote grassroots sports and foster a strong sporting culture. Bihar actively supports this by developing infrastructure and organizing state-level events like badminton.
       </p>
       <p className="text-xl font-semibold text-[#b86cc4]">
         Two Sports. One Passion. Reserve Your Spot <br/>for  Archery & Badminton!
@@ -41,22 +52,22 @@ const HeroSection = () => {
     </div>
 
       {/* Right Side with swapped images */}
-      <div className="relative w-full h-full">
+      <div className="relative flex   w-full h-full">
         {/* Now showing Image 2 in top-left */}
         <img
-          src={BadmintonImage}
+          src={ArcheryImage}
           alt="Image 2"
-          className="absolute top-10 right-0 w-2/4 h-2/4 object-cover "
+          className=" w-90 h-90 object-cover transform translate-y-26 "
         />
 
         {/* Now showing Image 1 in bottom-right */}
         <img
-          src={ArcheryImage}
-          className="absolute bottom-30 left-0 w-2/4 h-2/4 object-cover "
+          src={BadmintonImage}
+          className=" w-90 h-90 object-cover transform -translate-y-12 "
         />
       </div>
       {isFormShowing && (
-        <BookTicketForm onClick={handleCloseFrom} />
+        <BookTicketForm handleClose={handleCloseFrom} />
       )}
     </div>
   );
