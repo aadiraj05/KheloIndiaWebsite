@@ -15,7 +15,7 @@ const BookTicketForm = ({ handleClose }) => {
     email: "",
     phone: "",
     fatherName: "",
-    slot: localStorage.getItem("userSlot") || "",
+    slot:  "",
     address: "",
   });
 
@@ -60,7 +60,7 @@ const BookTicketForm = ({ handleClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur flex justify-center items-center">
-      <div className="w-full max-w-3xl max-h-screen overflow-y-auto px-4 py-6 bg-slate-50 rounded-xl shadow-lg rounded-2xl border border-slate-100 bg-slate-50">
+      <div className="w-full max-w-3xl max-h-screen overflow-y-auto px-4 py-6   shadow-lg rounded-2xl border border-slate-100 bg-slate-50">
       <form onSubmit={handleSubmit} className="space-y-4">
   {[
     { name: "name", label: "Name" },
@@ -81,7 +81,7 @@ const BookTicketForm = ({ handleClose }) => {
           value={formData[name]}
           onChange={handleChange}
           required
-          className="block h-11 w-full rounded-full border border-gray-300 bg-transparent bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
+          className="block h-11 w-full rounded-full border border-gray-300  bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
         >
           <option value="">
             Select Slot
@@ -100,7 +100,7 @@ const BookTicketForm = ({ handleClose }) => {
           required
           placeholder={`Enter your ${label.toLowerCase()}`}
           autoComplete="off"
-          className="block h-11 w-full rounded-full border border-gray-300 bg-transparent bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
+          className="block h-11 w-full rounded-full border border-gray-300 bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
         />
       )}
     </div>

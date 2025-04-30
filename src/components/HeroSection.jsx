@@ -34,7 +34,7 @@ const HeroSection = () => {
        <TfiLayoutLineSolid />
       </span> Bhagalpur</h2>
 
-      <p className="text-md text-[#dadada]  font-semibold mb-6 mt-10 max-w-md">
+      <p className="text-md text-[#cfbdbd]  font-semibold mb-6 mt-10 max-w-md">
         Khelo India is a government initiative to promote grassroots sports and foster a strong sporting culture. Bihar actively supports this by developing infrastructure and organizing state-level events like badminton.
       </p>
       <p className="text-xl font-semibold text-[#b86cc4]">

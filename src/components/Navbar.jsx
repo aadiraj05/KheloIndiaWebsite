@@ -38,7 +38,7 @@ const Navbar = () => {
             <li className="hover:text-[#b86cc4] cursor-pointer ">
            
 <button
-  class="group flex cursor-pointer items-center justify-start w-11 h-11 bg-[#b86cc4] rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1"
+  class="group flex  items-center justify-start w-11 h-11 bg-[#b86cc4] rounded-full cursor-pointer relative overflow-hidden transition-all duration-200 shadow-lg hover:w-32 hover:rounded-lg active:translate-x-1 active:translate-y-1"
 >
   <div
     class="flex items-center justify-center w-full transition-all duration-300 group-hover:justify-start group-hover:px-3"
