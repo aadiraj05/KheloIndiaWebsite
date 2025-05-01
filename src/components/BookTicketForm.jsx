@@ -15,7 +15,7 @@ const BookTicketForm = ({ handleClose }) => {
     email: "",
     phone: "",
     fatherName: "",
-    slot:  "",
+    slot: "",
     address: "",
   });
 
@@ -53,6 +53,8 @@ const BookTicketForm = ({ handleClose }) => {
       .catch((err) => {
         console.error("Error generating PNG from ticket:", err);
       });
+   
+      
   };
   
 
@@ -60,74 +62,73 @@ const BookTicketForm = ({ handleClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur flex justify-center items-center">
-      <div className="w-full max-w-3xl max-h-screen overflow-y-auto px-4 py-6   shadow-lg rounded-2xl border border-slate-100 bg-slate-50">
-      <form onSubmit={handleSubmit} className="space-y-4">
-  {[
-    { name: "name", label: "Name" },
-    { name: "email", label: "Email Address" },
-    { name: "phone", label: "Phone" },
-    { name: "fatherName", label: "Father's Name" },
-    { name: "slot", label: "Slot" },
-    { name: "address", label: "Address" },
-  ].map(({ name, label }) => (
-    <div key={name}>
-      <label className="mb-2 flex items-center mt-3 text-sm font-medium text-gray-600">
-        {label}
-      </label>
-      {name === "slot" ? (
-        // Slot input as dropdown
-        <select
-          name={name}
-          value={formData[name]}
-          onChange={handleChange}
-          required
-          className="block h-11 w-full rounded-full border border-gray-300  bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
-        >
-          <option value="">
-            Select Slot
-          </option>
-          <option value="slot1">Morning</option>
-          <option value="slot2">Evening</option>
-          <option value="slot3">Afternoon</option>
-        </select>
-      ) : (
-        // Other inputs
-        <input
-          type="text"
-          name={name}
-          value={formData[name]}
-          onChange={handleChange}
-          required
-          placeholder={`Enter your ${label.toLowerCase()}`}
-          autoComplete="off"
-          className="block h-11 w-full rounded-full border border-gray-300 bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
-        />
-      )}
+      <div className="w-full max-w-3xl max-h-screen overflow-y-auto px-4 py-6 bg-slate-50 rounded-xl shadow-lg rounded-2xl border border-slate-100 bg-slate-50">
+      {!showQR && (
+  <form onSubmit={handleSubmit} className="space-y-4">
+    {/* Form Fields */}
+    {[
+      { name: "name", label: "Name" },
+      { name: "email", label: "Email Address" },
+      { name: "phone", label: "Phone" },
+      { name: "fatherName", label: "Father's Name" },
+      { name: "slot", label: "Slot" },
+      { name: "address", label: "Address" },
+    ].map(({ name, label }) => (
+      <div key={name}>
+        <label className="mb-2 flex items-center mt-3 text-sm font-medium text-gray-600">
+          {label}
+        </label>
+        {name === "slot" ? (
+          <select
+            name={name}
+            value={formData[name]}
+            onChange={handleChange}
+            required
+            className="block h-11 w-full rounded-full border border-gray-300 bg-transparent bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
+          >
+            <option value="">Select Slot</option>
+            <option value="slot1">Morning</option>
+            <option value="slot2">Evening</option>
+            <option value="slot3">Afternoon</option>
+          </select>
+        ) : (
+          <input
+            type="text"
+            name={name}
+            value={formData[name]}
+            onChange={handleChange}
+            required
+            placeholder={`Enter your ${label.toLowerCase()}`}
+            autoComplete="off"
+            className="block h-11 w-full rounded-full border border-gray-300 bg-transparent bg-white px-5 py-2.5 text-base leading-7 font-normal text-gray-900 placeholder-gray-400 shadow-xs focus:outline-none"
+          />
+        )}
+      </div>
+    ))}
+
+    <div className="grid grid-cols-2 gap-4 w-full">
+      <button
+        type="button"
+        onClick={handleClose}
+        className="h-12 w-full rounded-full border border-[#b86cc4] text-base leading-7 font-semibold text-[#b86cc4] hover:text-white shadow-sm transition-all duration-700 hover:bg-[#b86cc4]"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        disabled={isFormEmpty}
+        className={`h-12 w-full rounded-full text-base leading-7 font-semibold text-white shadow-sm transition-all duration-700 ${
+          isFormEmpty
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-[#b86cc4] hover:bg-[#a95bb5]"
+        }`}
+      >
+        Book Now
+      </button>
     </div>
-  ))}
-
-  <div className="grid grid-cols-2 gap-4 w-full">
-    <button
-      type="button"
-      onClick={handleClose}
-      className="h-12 w-full rounded-full border border-[#b86cc4] text-base leading-7 font-semibold text-[#b86cc4] hover:text-white shadow-sm transition-all duration-700 hover:bg-[#b86cc4]"
-    >
-      Cancel
-    </button>
-
-    <button
-      onClick={handleSubmit}
-      disabled={isFormEmpty}
-      className={`h-12 w-full rounded-full text-base leading-7 font-semibold text-white shadow-sm transition-all duration-700 ${
-        isFormEmpty
-          ? "bg-gray-400 cursor-not-allowed"
-          : "bg-[#b86cc4] hover:bg-[#a95bb5]"
-      }`}
-    >
-      Book Now
-    </button>
-  </div>
-</form>
+  </form>
+)}
 
 
 {showQR && (
@@ -178,6 +179,7 @@ const BookTicketForm = ({ handleClose }) => {
     <div className="flex justify-center space-x-4">
       <button
         onClick={downloadQR}
+        
         className="border border-green-600 text-green-600 hover:text-white py-2 px-4 rounded hover:bg-green-700 transition text-sm"
       >
         Download Ticket
