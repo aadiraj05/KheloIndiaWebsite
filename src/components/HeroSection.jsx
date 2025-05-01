@@ -5,6 +5,8 @@ import ArcheryImage from '../assets/Archery-amico.svg';
 import { FaCheckToSlot } from "react-icons/fa6";
 import { HiTicket } from "react-icons/hi2";
 import { TfiLayoutLineSolid } from "react-icons/tfi";
+import EventCard from '../components/EventCard'
+
 
 // import SlotDropdownButton from './SlotDropdownButton';
 
@@ -33,20 +35,22 @@ const HeroSection = () => {
     <h2 className="text-4xl font-semibold text-[#b86cc4] ml-[110px]"><span className="text-red-600 text-5xl font-semibold       inline-block align-middle ml-2">
        <TfiLayoutLineSolid />
       </span> Bhagalpur</h2>
-
-      <p className="text-md text-[#cfbdbd]  font-semibold mb-6 mt-10 max-w-md">
-        Khelo India is a government initiative to promote grassroots sports and foster a strong sporting culture. Bihar actively supports this by developing infrastructure and organizing state-level events like badminton.
-      </p>
-      <p className="text-xl font-semibold text-[#b86cc4]">
+      
+      <div className='my-15'>
+        <EventCard />
+      </div>
+     
+      
+      {/* <p className="text-xl font-semibold text-[#b86cc4]">
         Two Sports. One Passion. Reserve Your Spot <br/>for  Archery & Badminton!
-      </p>
+      </p> */}
 
       <div className="flex space-x-5  py-10">
       {/* <SlotDropdownButton /> */}
           <button onClick={handleBookTicket} className=" flex items-center gap-x-2 bg-[#b86cc4] text-white px-6 py-2 rounded-lg transition transform duration-300 ease-in-out hover:bg-[#a36bc5] hover:scale-110 ">
           <HiTicket />
 
-          Book Ticket
+          Get Free Ticket
           </button>
         </div>
     </div>
